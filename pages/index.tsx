@@ -17,22 +17,20 @@ const Home: NextPage = (props: any) => {
       <div>
         {images.map((image, index) => (
           <div key={index}>
-            {image}<button type='button' onClick={()=>saveImage("image")}>저장</button>
+            {image}<button type='button' onClick={()=>props.saveImage(image)}>저장</button>
           </div>
         ))}
       </div>
     </div>
   )
 }
-const mapStateToProps = (state: { count: any }) =>{
+const mapStateToProps = (state: { count: Number }) =>{
   return {
       count: state.count
   }
 }
-const mapDispatchToProps: any = (dispatch: Function) =>{
-  return {
-    saveImage: (image:String)=>dispatch(saveImage(image))
-  }
+const mapDispatchToProps: any = {
+    saveImage: (image:String)=>saveImage(image)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)
