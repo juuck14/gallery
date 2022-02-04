@@ -3,20 +3,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { saveImage } from '../redux/images/actions'
-import { connect } from 'react-redux';
+import { connect, useStore } from 'react-redux';
+import { useState } from 'react'
 
 const Home: NextPage = (props: any) => {
   const images: Array<String> = ['image1','image2','image3','image4','image5','image6']
   return (
-    <div>
+    <div> 
       <Head>
         <title>gallery</title>
       </Head>      
       <h2>hello world</h2>
       <div>
-        {images.map((image) => (
-          <div>
-            {image}<button type='button' onClick={()=>props.saveImage()}>저장</button>
+        {images.map((image, index) => (
+          <div key={index}>
+            {image}<button type='button' onClick={()=>saveImage("image")}>저장</button>
           </div>
         ))}
       </div>
@@ -28,9 +29,9 @@ const mapStateToProps = (state: { count: any }) =>{
       count: state.count
   }
 }
-const mapDispatchToProps = (dispatch: Function) =>{
+const mapDispatchToProps: any = (dispatch: Function) =>{
   return {
-    saveImage: ()=>dispatch(saveImage())
+    saveImage: (image:String)=>dispatch(saveImage(image))
   }
 }
 

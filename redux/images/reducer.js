@@ -2,15 +2,18 @@ import {SAVE_IMAGE, REMOVE_IMAGE} from './types'
 
 const initialState = {
     count: 0,
-    images:{}
+    images:[]
 }
 const imageReducer = (state=initialState, action) =>{
     switch(action.type){
         case SAVE_IMAGE:
-            return {
-                ...state,
-                count: state.count + 1
-            }
+
+                return {
+                    ...state,
+                    images:[...state.images, action.payload],
+                    count: state.count + 1
+                }
+
         case REMOVE_IMAGE:
             return {
                 ...state,

@@ -1,8 +1,9 @@
 import {SAVE_IMAGE, REMOVE_IMAGE} from './types'
 
-export const saveImage = () =>{
+export const saveImage = (image) =>{
     return {
-        type: SAVE_IMAGE
+        type: SAVE_IMAGE,
+        payload: image
     }
 }
 
