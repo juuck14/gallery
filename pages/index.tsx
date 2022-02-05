@@ -6,6 +6,8 @@ import { saveImage } from '../redux/images/actions'
 import { connect, useStore } from 'react-redux';
 import { useState } from 'react'
 import styled from 'styled-components'
+import { Modal, Button } from 'react-bootstrap'
+import Detail from './detail'
 
 const ImageFrameStyle = styled.div`
     border: 1px solid black;
@@ -17,11 +19,22 @@ const ImageFrameStyle = styled.div`
     justify-content: center;
 `;
 
-const ImageFrame = ({children}: any) =>{
-  return <ImageFrameStyle>{children}</ImageFrameStyle>
+const ImageFrame = ({click, children}: any) =>{
+  return <ImageFrameStyle onClick={click}>{children}</ImageFrameStyle>
 }
 const Home: NextPage = (props: any) => {
-  const images: Array<String> = ['image1','image2','image3','image4','image5','image6']
+  const images: Array<string> = ['image1','image2','image3','image4','image5','image6']
+  const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
+
+  const handleClose = () => setShow(false);
+  const handleShow = (image:string) => {
+    setTitle(image);
+    setShow(true);
+  }  
+  const save = (image: string,e:any) => {
+    e.stopPropagation()
+  }
   return (
     <div> 
       <Head>
@@ -30,11 +43,13 @@ const Home: NextPage = (props: any) => {
       <h2>hello world</h2>
       <div>
         {images.map((image, index) => (
-          <ImageFrame key={index}>
-            {image}<button type='button' onClick={()=>props.saveImage(image)}>저장</button>
+          <ImageFrame key={index} click={()=>handleShow(image)}>
+            {image}<Button variant="primary" onClick={(e)=>save(image,e)}>저장</Button>
           </ImageFrame>
         ))}
       </div>
+      <Detail show={show} hide={handleClose} title={title}>
+      </Detail>
     </div>
   )
 }
