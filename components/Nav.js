@@ -9,17 +9,23 @@ const Navi = () => {
   return (
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Link href="/" passHref>
+            <Navbar.Brand>Navbar</Navbar.Brand>
+          </Link>
           <Nav className="justify-content-end">
           <Nav.Item className="justify-content-end">
-              <Nav.Link href="/">
+              <Link href="/" passHref>
+                <Nav.Link>
                 Home
-              </Nav.Link>
+                </Nav.Link>
+              </Link>
           </Nav.Item>
           <Nav.Item className="justify-content-end">
-              <Nav.Link href="/profile"  eventKey="profile">
-                <FontAwesomeIcon icon={faUserCircle } />
-              </Nav.Link>
+              <Link href="/profile" passHref>
+               <Nav.Link>  
+                 <FontAwesomeIcon icon={faUserCircle } />
+                </Nav.Link>
+              </Link>          
           </Nav.Item>
         </Nav>
         </Container>

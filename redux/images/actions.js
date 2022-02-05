@@ -7,8 +7,9 @@ export const saveImage = (image) =>{
     }
 }
 
-export const removeImage = () =>{
+export const removeImage = (image) =>{
     return {
-        type: REMOVE_IMAGE
+        type: REMOVE_IMAGE,
+        payload: image
     }
 }

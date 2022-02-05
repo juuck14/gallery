@@ -18,8 +18,10 @@ const imageReducer = (state=initialState, action) =>{
             }
 
         case REMOVE_IMAGE:
+            const newImages = state.images.filter(a => a !== action.payload);
             return {
                 ...state,
+                images: newImages,
                 count: state.count - 1
             }
         default: return state
