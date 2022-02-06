@@ -2,64 +2,83 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { saveImage } from '../redux/images/actions'
+import { saveImage, fetchImage } from '../redux/images/actions'
 import { connect, useStore } from 'react-redux';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button,Spinner } from 'react-bootstrap'
 import Detail from './detail'
+import ImageFrame from './imageFrame'
+import { faHeart, faUserCircle  } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ImageFrameStyle = styled.div`
-    border: 1px solid black;
-    width: 10rem;
-    height: 10rem;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-`;
 
-const ImageFrame = ({click, children}: any) =>{
-  return <ImageFrameStyle onClick={click}>{children}</ImageFrameStyle>
+const containerStyle = {
+  padding: "4rem"
 }
+
+const spinnerStyle = {
+  textAlign: "center"
+}
+
+const buttonStyle = {
+  position: "absolute",
+  right: "0",
+  bottom: "0"
+}
+
 const Home: NextPage = (props: any) => {
-  const images: Array<string> = ['image1','image2','image3','image4','image5','image6']
+  useEffect(() => {
+    props.fetchImage()
+  },[])
+  
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = (image:string) => {
-    setTitle(image);
+    setUrl(image);
     setShow(true);
   }  
   const save = (image: string,e:any) => {
     e.stopPropagation()
+    props.saveImage(image)
   }
   return (
     <div> 
       <Head>
         <title>gallery</title>
-      </Head>      
+      </Head>
+
       <h2>hello world</h2>
-      <div>
-        {images.map((image, index) => (
-          <ImageFrame key={index} click={()=>handleShow(image)}>
-            {image}<Button variant="primary" onClick={(e)=>save(image,e)}>저장</Button>
+      
+      <div style={containerStyle}>
+        {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
+        <>
+        {props.images.map((image: string, index: any) => (
+          <ImageFrame key={index} click={()=>handleShow(image)} url={image}>
+            <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
           </ImageFrame>
         ))}
+        </>
+        }
       </div>
-      <Detail show={show} hide={handleClose} title={title}>
+      
+      <Detail show={show} hide={handleClose} url={url}>
       </Detail>
     </div>
   )
 }
-const mapStateToProps = (state: { count: Number }) =>{
+const mapStateToProps = (state: { count: Number, images: string[],loading:boolean}) =>{
   return {
-      count: state.count
+      count: state.count,
+      loading: state.loading,
+      images: state.images
   }
 }
 const mapDispatchToProps: any = {
-    saveImage: (image:String)=>saveImage(image)
+    saveImage: (image:String)=>saveImage(image),
+    fetchImage
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)

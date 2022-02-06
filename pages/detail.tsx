@@ -8,13 +8,20 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { Modal, Button } from 'react-bootstrap'
 
-const Detail = ({show, hide, title}: any) => {
+interface ImageDetailInterface {
+  url: string;
+}
+const ImageDetailStyle = styled.div<ImageDetailInterface>`
+    background: ${(props:any) => `url(${props.url}) no-repeat top center`};
+    background-size: cover;
+    width: 100%;
+    padding-bottom: 100%;
+`;
+
+const Detail = ({show, hide, url}: any) => {
   return (
       <Modal show={show} onHide={hide}>
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body><ImageDetailStyle url={url}></ImageDetailStyle></Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={hide}>
             Close
