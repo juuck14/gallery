@@ -12,7 +12,6 @@ const profile = (props: any) => {
     const [url, setUrl] = useState("");
 
     const [show, setShow] = useState(false);
-    const [savedShow, setSavedShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = (image:string) => {
       setUrl(image);

@@ -19,7 +19,6 @@ const Home: NextPage = (props: any) => {
   const [url, setUrl] = useState("");
 
   const [show, setShow] = useState(false);
-  const [savedShow, setSavedShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (image:string) => {
     setUrl(image);
@@ -28,7 +27,6 @@ const Home: NextPage = (props: any) => {
   const save = (image: string,e:any) => {
     
     e.stopPropagation()
-    setSavedShow(!savedShow)
     props.saveImage(image)
   }
   return (
