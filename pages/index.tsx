@@ -1,17 +1,14 @@
+import { faHeart, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { saveImage, fetchImage } from '../redux/images/actions'
-import { connect, useStore } from 'react-redux';
-import { useState, useEffect, useRef, CSSProperties } from 'react'
-import styled from 'styled-components'
-import { Modal, Button,Spinner, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Button, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
-import { faHeart, faRedo } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {headerStyle, containerStyle, spinnerStyle, buttonStyle} from '../styles/styles'
+import { fetchImage, saveImage } from '../redux/images/actions'
+import { buttonStyle, containerStyle, headerStyle, spinnerStyle} from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
@@ -29,6 +26,7 @@ const Home: NextPage = (props: any) => {
     setShow(true);
   }  
   const save = (image: string,e:any) => {
+    
     e.stopPropagation()
     setSavedShow(!savedShow)
     props.saveImage(image)
@@ -47,6 +45,7 @@ const Home: NextPage = (props: any) => {
         {props.images.map((image: string, index: number) => (
           <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
           <OverlayTrigger
+            trigger='click'
             key={index}
             placement="top"
             overlay={

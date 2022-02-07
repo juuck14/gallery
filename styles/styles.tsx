@@ -1,5 +1,5 @@
 
-  import { useState, useEffect, useRef, CSSProperties } from 'react'
+  import { CSSProperties } from 'react'
   
   
   export const headerStyle: CSSProperties = {
@@ -18,5 +18,13 @@
   export const buttonStyle: CSSProperties = {
     position: "absolute",
     right: "0",
-    bottom: "0"
+    bottom: "0",
+  }
+  
+  export const saveButtonStyle: CSSProperties = {
+    position: "absolute",
+    right: "0.5rem",
+    bottom: "0.5rem",
+    fontSize: "1.5rem"
+
   }

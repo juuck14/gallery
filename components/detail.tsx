@@ -1,12 +1,5 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { saveImage } from '../redux/images/actions'
-import { connect, useStore } from 'react-redux';
-import { useState } from 'react'
+import { Button, Modal } from 'react-bootstrap'
 import styled from 'styled-components'
-import { Modal, Button } from 'react-bootstrap'
 
 interface ImageDetailInterface {
   url: string;

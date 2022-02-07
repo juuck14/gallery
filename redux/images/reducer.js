@@ -1,4 +1,4 @@
-import {SAVE_IMAGE, REMOVE_IMAGE, REQUEST_IMAGE, REQUEST_IMAGE_SUCCESS, REQUEST_IMAGE_FAILURE} from './types'
+import { REMOVE_IMAGE, REQUEST_IMAGE, REQUEST_IMAGE_SUCCESS, SAVE_IMAGE } from './types'
 
 const initialState = {
     images:[],

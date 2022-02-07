@@ -1,9 +1,9 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { removeImage } from '../redux/images/actions'
-import ImageFrame from '../components/imageFrame'
-import { Modal, Button } from 'react-bootstrap'
-import {buttonStyle} from '../styles/styles'
+import ImageFrame from '../components/imageFrame';
+import { removeImage } from '../redux/images/actions';
+import { buttonStyle } from '../styles/styles';
 
 const profile = (props: any) => {
   return (

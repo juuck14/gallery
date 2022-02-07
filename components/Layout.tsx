@@ -1,7 +1,6 @@
-import { Children } from 'react';
-import Navi from './Nav'
-import {Provider } from 'react-redux'
-import store from '../redux/store'
+import { Provider } from 'react-redux';
+import store from '../redux/store';
+import Navi from './Nav';
 
 const Layout = ({children}:any) => {
   return (
