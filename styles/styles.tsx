@@ -12,7 +12,9 @@
   }
   
   export const spinnerStyle: CSSProperties = {
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: "1.5rem",
+    marginTop: "3rem"
   }
   
   export const buttonStyle: CSSProperties = {
