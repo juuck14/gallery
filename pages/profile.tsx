@@ -8,7 +8,7 @@ import ImageFrame from '../components/imageFrame';
 import { removeImage } from '../redux/images/actions';
 import { buttonStyle, headerStyle, spinnerStyle } from '../styles/styles';
 
-const profile = (props: any) => {
+const Profile = (props: any) => {
     const [url, setUrl] = useState("");
 
     const [show, setShow] = useState(false);
@@ -47,4 +47,4 @@ const mapStateToProps = (state: any) =>{
 const mapDispatchToProps = {
     removeImage: (image: string)=>removeImage(image)
 }
-export default connect(mapStateToProps,mapDispatchToProps)(profile);
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);
