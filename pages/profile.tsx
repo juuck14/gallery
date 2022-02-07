@@ -17,6 +17,10 @@ const Profile = (props: any) => {
       setUrl(image);
       setShow(true);
     }  
+    const remove = (image: string,e:any) => {
+        e.stopPropagation()
+        props.removeImage(image)
+      }
   return (
       <div>
           <h1 style={headerStyle}>Saved images</h1>
@@ -26,7 +30,7 @@ const Profile = (props: any) => {
           <div style={{padding:"2rem"}}>
                 {props.savedImages.map((image: any, index: number) => (
                 <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
-                    <Button variant="primary" onClick={()=>props.removeImage(image)} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
+                    <Button variant="primary" onClick={(e: any)=>remove(image, e)} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
                 </ImageFrame>
                 ))}
             </div>
