@@ -1,7 +1,6 @@
 import {SAVE_IMAGE, REMOVE_IMAGE, REQUEST_IMAGE, REQUEST_IMAGE_SUCCESS, REQUEST_IMAGE_FAILURE} from './types'
 
 const initialState = {
-    count: 0,
     images:[],
     savedImages:[],
     loading: false,
@@ -15,8 +14,7 @@ const imageReducer = (state=initialState, action) =>{
             } else{
                 return {
                     ...state,
-                    savedImages:[...state.savedImages, action.payload],
-                    count: state.count + 1
+                    savedImages:[...state.savedImages, action.payload]
                 }
             }
 
@@ -24,8 +22,7 @@ const imageReducer = (state=initialState, action) =>{
             const newImages = state.savedImages.filter(a => a !== action.payload);
             return {
                 ...state,
-                savedImages: newImages,
-                count: state.count - 1
+                savedImages: newImages
             }
         
         case REQUEST_IMAGE:

@@ -35,7 +35,7 @@ const requestImage = () =>{
 export const fetchImage = () =>{
     return (dispatch) => {
         dispatch(requestImage())
-        fetch('https://dog.ceo/api/breed/hound/images/random/62')
+        fetch('https://dog.ceo/api/breed/hound/images/random/60')
         .then(response => response.json())
         .then(data => dispatch(requestImageSuccess(data.message)))
         .catch(error => dispatch(requestImageFailure()))

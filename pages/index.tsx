@@ -4,37 +4,25 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { saveImage, fetchImage } from '../redux/images/actions'
 import { connect, useStore } from 'react-redux';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, CSSProperties } from 'react'
 import styled from 'styled-components'
-import { Modal, Button,Spinner } from 'react-bootstrap'
-import Detail from './detail'
-import ImageFrame from './imageFrame'
-import { faHeart, faUserCircle  } from '@fortawesome/free-solid-svg-icons'
+import { Modal, Button,Spinner, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import Detail from '../components/detail'
+import ImageFrame from '../components/imageFrame'
+import { faHeart, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-
-const containerStyle = {
-  padding: "4rem"
-}
-
-const spinnerStyle = {
-  textAlign: "center"
-}
-
-const buttonStyle = {
-  position: "absolute",
-  right: "0",
-  bottom: "0"
-}
+import {headerStyle, containerStyle, spinnerStyle, buttonStyle} from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
     props.fetchImage()
   },[])
   
-  const [show, setShow] = useState(false);
+  
   const [url, setUrl] = useState("");
 
+  const [show, setShow] = useState(false);
+  const [savedShow, setSavedShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (image:string) => {
     setUrl(image);
@@ -42,6 +30,7 @@ const Home: NextPage = (props: any) => {
   }  
   const save = (image: string,e:any) => {
     e.stopPropagation()
+    setSavedShow(!savedShow)
     props.saveImage(image)
   }
   return (
@@ -50,16 +39,28 @@ const Home: NextPage = (props: any) => {
         <title>gallery</title>
       </Head>
 
-      <h2>hello world</h2>
-      
+      <h1 style={headerStyle}>DogGallery</h1>
+      <div style={{textAlign: "center"}}><Button variant="info" style={{borderRadius: "100%", color:"white"}} onClick={()=>props.fetchImage()}><FontAwesomeIcon icon={faRedo} /></Button></div>
       <div style={containerStyle}>
         {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
         <>
-        {props.images.map((image: string, index: any) => (
-          <ImageFrame key={index} click={()=>handleShow(image)} url={image}>
+        {props.images.map((image: string, index: number) => (
+          <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
+          <OverlayTrigger
+            key={index}
+            placement="top"
+            overlay={
+              <Tooltip id={`tooltip-${index}`}>
+                Saved!
+              </Tooltip>
+            }
+          >
             <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
+          </OverlayTrigger>
           </ImageFrame>
+          
         ))}
+
         </>
         }
       </div>
@@ -69,9 +70,8 @@ const Home: NextPage = (props: any) => {
     </div>
   )
 }
-const mapStateToProps = (state: { count: Number, images: string[],loading:boolean}) =>{
+const mapStateToProps = (state: { images: string[],loading:boolean}) =>{
   return {
-      count: state.count,
       loading: state.loading,
       images: state.images
   }

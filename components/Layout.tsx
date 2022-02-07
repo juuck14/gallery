@@ -1,10 +1,9 @@
-import Head from 'next/head'
 import { Children } from 'react';
 import Navi from './Nav'
 import {Provider } from 'react-redux'
 import store from '../redux/store'
 
-const Layout = ({children}) => {
+const Layout = ({children}:any) => {
   return (
     <Provider store={store}>
       <Navi/>

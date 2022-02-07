@@ -10,7 +10,7 @@ const Navi = () => {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Link href="/" passHref>
-            <Navbar.Brand>Navbar</Navbar.Brand>
+            <Navbar.Brand>DogGallery</Navbar.Brand>
           </Link>
           <Nav className="justify-content-end">
           <Nav.Item className="justify-content-end">

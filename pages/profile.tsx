@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { connect } from 'react-redux';
 import { removeImage } from '../redux/images/actions'
-import ImageFrame from './imageFrame'
+import ImageFrame from '../components/imageFrame'
 import { Modal, Button } from 'react-bootstrap'
+import {buttonStyle} from '../styles/styles'
 
-const buttonStyle = {
-    position: "absolute",
-    right: "0",
-    bottom: "0"
-}
-
-const profile = (props) => {
+const profile = (props: any) => {
   return (
       <div>
           <h2>this is your profile</h2>
-          <p>사진 수: {props.count}</p>
+          <p>사진 수: {props.savedImages.length}</p>
           <p>사진:</p>
           <div style={{padding:"2rem"}}>
-                {props.savedImages.map((image, index) => (
-                <ImageFrame key={index} url={image}>
+                {props.savedImages.map((image: any, index: number) => (
+                <ImageFrame key={index} url={image} delay={index/20}>
                     <Button variant="primary" onClick={()=>props.removeImage(image)} style={buttonStyle}>삭제</Button>
                 </ImageFrame>
                 ))}
@@ -27,14 +22,13 @@ const profile = (props) => {
   );
 };
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state: any) =>{
     return {
-        count: state.count,
         savedImages: state.savedImages
     }
 }
 
 const mapDispatchToProps = {
-    removeImage: (image)=>removeImage(image)
+    removeImage: (image: string)=>removeImage(image)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(profile);
