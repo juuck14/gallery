@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
 import { fetchImage, saveImage } from '../redux/images/actions'
-import { buttonStyle, containerStyle, headerStyle, spinnerStyle} from '../styles/styles'
+import { buttonStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {

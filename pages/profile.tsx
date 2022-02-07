@@ -1,12 +1,12 @@
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Detail from '../components/detail';
 import ImageFrame from '../components/imageFrame';
 import { removeImage } from '../redux/images/actions';
-import { buttonStyle, headerStyle,spinnerStyle } from '../styles/styles';
+import { buttonStyle, headerStyle, spinnerStyle } from '../styles/styles';
 
 const profile = (props: any) => {
     const [url, setUrl] = useState("");
