@@ -1,4 +1,4 @@
-import { REMOVE_IMAGE, REQUEST_IMAGE, REQUEST_IMAGE_SUCCESS, SAVE_IMAGE } from './types'
+import { REMOVE_DOG_IMAGE, REQUEST_DOG_IMAGE, REQUEST_DOG_IMAGE_SUCCESS,REQUEST_DOG_IMAGE_FAILURE, SAVE_DOG_IMAGE } from './types'
 
 const initialState = {
     images:[],
@@ -6,9 +6,9 @@ const initialState = {
     loading: false,
     err: null
 }
-const imageReducer = (state=initialState, action) =>{
+const dogImageReducer = (state=initialState, action) =>{
     switch(action.type){
-        case SAVE_IMAGE:
+        case SAVE_DOG_IMAGE:
             if(state.savedImages.includes(action.payload)) {
                 return state
             } else{
@@ -18,26 +18,26 @@ const imageReducer = (state=initialState, action) =>{
                 }
             }
 
-        case REMOVE_IMAGE:
+        case REMOVE_DOG_IMAGE:
             const newImages = state.savedImages.filter(a => a !== action.payload);
             return {
                 ...state,
                 savedImages: newImages
             }
         
-        case REQUEST_IMAGE:
+        case REQUEST_DOG_IMAGE:
             return {
                 ...state,
                 loading: true
             }
         
-        case REQUEST_IMAGE_SUCCESS:
+        case REQUEST_DOG_IMAGE_SUCCESS:
             return {
                 ...state,
                 images: action.payload,
                 loading: false
             }    
-        case REQUEST_IMAGE_SUCCESS:
+        case REQUEST_DOG_IMAGE_FAILURE:
             return {
                 ...state,
                 err: action.payload,
@@ -47,4 +47,4 @@ const imageReducer = (state=initialState, action) =>{
     }
 }
 
-export default imageReducer;
+export default dogImageReducer;

@@ -7,12 +7,12 @@ import { Button, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
-import { fetchDogImage, saveDogImage } from '../redux/dogImages/actions'
+import { fetchCatImage, saveCatImage } from '../redux/catImages/actions'
 import { buttonStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
-    props.fetchDogImage()
+    props.fetchCatImage()
   },[])
   
   
@@ -27,7 +27,7 @@ const Home: NextPage = (props: any) => {
   const save = (image: string,e:any) => {
     
     e.stopPropagation()
-    props.saveDogImage(image)
+    props.saveCatImage(image)
   }
   return (
     <div> 
@@ -35,13 +35,13 @@ const Home: NextPage = (props: any) => {
         <title>gallery</title>
       </Head>
 
-      <h1 style={headerStyle}>DogGallery</h1>
-      <div style={{textAlign: "center"}}><Button variant="info" style={{borderRadius: "100%", color:"white"}} onClick={()=>props.fetchDogImage()}><FontAwesomeIcon icon={faRedo} /></Button></div>
+      <h1 style={headerStyle}>CatGallery</h1>
+      <div style={{textAlign: "center"}}><Button variant="info" style={{borderRadius: "100%", color:"white"}} onClick={()=>props.fetchCatImage()}><FontAwesomeIcon icon={faRedo} /></Button></div>
       <div style={containerStyle}>
         {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
         <>
-        {props.images.map((image: string, index: number) => (
-          <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
+        {props.images.map(({url}: any, index: number) => (
+          <ImageFrame key={index} click={()=>handleShow(url)} url={url} delay={index/20}>
           <OverlayTrigger
             trigger='click'
             key={index}
@@ -52,7 +52,7 @@ const Home: NextPage = (props: any) => {
               </Tooltip>
             }
           >
-            <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
+            <Button variant="danger" onClick={(e)=>save(url,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
           </OverlayTrigger>
           </ImageFrame>
           
@@ -69,13 +69,13 @@ const Home: NextPage = (props: any) => {
 }
 const mapStateToProps = ({dog, cat}: any) =>{
   return {
-      loading: dog.loading,
-      images: dog.images
+      loading: cat.loading,
+      images: cat.images
   }
 }
 const mapDispatchToProps: any = {
-    saveDogImage: (image:String)=>saveDogImage(image),
-    fetchDogImage
+    saveCatImage: (image:String)=>saveCatImage(image),
+    fetchCatImage
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)

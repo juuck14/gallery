@@ -10,13 +10,20 @@ const Navi = () => {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Link href="/" passHref>
-            <Navbar.Brand>DogGallery</Navbar.Brand>
+            <Navbar.Brand>PetGallery</Navbar.Brand>
           </Link>
           <Nav className="justify-content-end">
           <Nav.Item className="justify-content-end">
               <Link href="/" passHref>
                 <Nav.Link>
-                Home
+                Dogs
+                </Nav.Link>
+              </Link>
+          </Nav.Item>
+          <Nav.Item className="justify-content-end">
+              <Link href="/cats" passHref>
+                <Nav.Link>
+                Cats
                 </Nav.Link>
               </Link>
           </Nav.Item>
