@@ -30,3 +30,25 @@
     fontSize: "1.5rem"
 
   }
+
+  export const commentStyle: CSSProperties = {
+    padding: "10px 0 20px 0",
+    borderBottom: "1px solid #cbcbcb"
+  }
+
+  export const commentsStyle: CSSProperties = {
+    maxHeight: "100px",
+    overflowY: "scroll", 
+    marginTop:"20px"
+  }
+
+  export const commentNameStyle: CSSProperties = {
+    fontSize: "0.7rem",
+    fontWeight: "700"
+
+  }
+
+  export const commentDatetimeStyle: CSSProperties = {
+    fontSize: "0.7rem",
+    paddingTop: "0.7rem"
+  }

@@ -62,8 +62,7 @@ const Home: NextPage = (props: any) => {
         }
       </div>
       
-      <Detail show={show} hide={handleClose} url={url}>
-      </Detail>
+      <Detail show={show} hide={handleClose} url={url} type="dog" />
     </div>
   )
 }
@@ -74,7 +73,7 @@ const mapStateToProps = ({dog, cat}: any) =>{
   }
 }
 const mapDispatchToProps: any = {
-    saveDogImage: (image:String)=>saveDogImage(image),
+    saveDogImage: (image:string)=>saveDogImage(image),
     fetchDogImage
 }
 
