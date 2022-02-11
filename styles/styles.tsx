@@ -23,12 +23,13 @@
     bottom: "0",
   }
   
-  export const saveButtonStyle: CSSProperties = {
+  export const commentIconStyle: CSSProperties = {
     position: "absolute",
-    right: "0.5rem",
-    bottom: "0.5rem",
-    fontSize: "1.5rem"
-
+    right: "2.5rem",
+    bottom: "0",
+    padding: "0.275rem 0.75rem",
+    fontSize: "1.2rem",
+    color: "#0d6efd"
   }
 
   export const commentStyle: CSSProperties = {

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { commentCatImage } from '../redux/catImages/actions';
 import { commentDogImage } from '../redux/dogImages/actions';
 import { commentsStyle, commentStyle, commentNameStyle, commentDatetimeStyle } from '../styles/styles';
 
@@ -9,18 +10,25 @@ const CommentSection = (props: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   if(props.type === "dog"){
     thisComments = props.dogComments[props.url]
-  }
+  } else if(props.type === "cat"){
+    thisComments = props.catComments[props.url]
+  }  
   const submit = async () =>{
     if(comment.trim().length > 0){
       var p = new Promise(function(resolve, reject) {
-        props.commentDogImage(props.url, comment);
+        if(props.type === "dog"){
+          props.commentDogImage(props.url, comment);
+        } else if(props.type === "cat"){
+          props.commentCatImage(props.url, comment);
+        }  
         resolve("success");
       });
   
       p.then(function() {
         console.log(scrollRef);
         if(scrollRef.current){
-          scrollRef.current.children[scrollRef.current.children.length - 1].scrollIntoView({behavior: "smooth"});
+          console.log(scrollRef.current,scrollRef.current.children[scrollRef.current.children.length - 1])
+          scrollRef.current.children[scrollRef.current.children.length - 1].scrollIntoView();
           setComment("")
         }
       });
@@ -65,11 +73,14 @@ const CommentSection = (props: any) => {
 const mapStateToProps = ({dog, cat}: any, ownProps: any) =>{
   return {
       ...ownProps,
-      dogComments: dog.comments
+      dogComments: dog.comments,
+      catComments: cat.comments
+
   }
 }
 
 const mapDispatchToProps: any = {
-  commentDogImage: (url:string, comment:string)=>commentDogImage(url, comment)
+  commentDogImage: (url:string, comment:string)=>commentDogImage(url, comment),
+  commentCatImage: (url:string, comment:string)=>commentCatImage(url, comment)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CommentSection);

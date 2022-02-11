@@ -1,4 +1,4 @@
-import { faHeart, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faRedo, faComment } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
 import { fetchDogImage, saveDogImage } from '../redux/dogImages/actions'
-import { buttonStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
+import { buttonStyle, commentIconStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
@@ -43,7 +43,7 @@ const Home: NextPage = (props: any) => {
         {props.images.map((image: string, index: number) => (
           <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
           <OverlayTrigger
-            trigger='click'
+            trigger='focus'
             key={index}
             placement="top"
             overlay={
@@ -52,7 +52,10 @@ const Home: NextPage = (props: any) => {
               </Tooltip>
             }
           >
-            <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
+            <>
+              <span style={commentIconStyle}><FontAwesomeIcon icon={faComment}/> {props.comments[image]?props.comments[image].length:0}</span>
+              <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
+            </>
           </OverlayTrigger>
           </ImageFrame>
           
@@ -69,7 +72,8 @@ const Home: NextPage = (props: any) => {
 const mapStateToProps = ({dog, cat}: any) =>{
   return {
       loading: dog.loading,
-      images: dog.images
+      images: dog.images,
+      comments: dog.comments
   }
 }
 const mapDispatchToProps: any = {

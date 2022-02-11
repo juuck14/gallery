@@ -11,12 +11,13 @@ import { buttonStyle, headerStyle, spinnerStyle } from '../styles/styles';
 
 const Profile = (props: any) => {
     const [url, setUrl] = useState("");
-
+    const [type, setType] = useState("");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = (image:string) => {
-      setUrl(image);
-      setShow(true);
+    const handleShow = (image:string, type: string) => {
+        setType(type)
+        setUrl(image);
+        setShow(true);
     }  
     const remove = (image: string,e:any,type:string) => {
         e.stopPropagation()
@@ -35,19 +36,19 @@ const Profile = (props: any) => {
           <div style={spinnerStyle}>{props.savedDogImages.length + props.savedCatImages.length} images</div>
           <div style={{padding:"2rem"}}>
                 {props.savedDogImages.map((image: any, index: number) => (
-                <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
+                <ImageFrame key={index} click={()=>handleShow(image, "dog")} url={image} delay={index/20}>
                     <Button variant="primary" onClick={(e: any)=>remove(image, e, "dog")} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
                 </ImageFrame>
                 ))}
                 {props.savedCatImages.map((image: any, index: number) => (
-                <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
+                <ImageFrame key={index} click={()=>handleShow(image, "cat")} url={image} delay={index/20}>
                     <Button variant="primary" onClick={(e: any)=>remove(image, e, "cat")} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
                 </ImageFrame>
                 ))}
             </div>
             </>
             }
-        <Detail show={show} hide={handleClose} url={url}>
+        <Detail show={show} hide={handleClose} url={url} type={type}>
         </Detail>
       </div>
   );
