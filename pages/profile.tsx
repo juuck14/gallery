@@ -5,8 +5,8 @@ import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Detail from '../components/detail';
 import ImageFrame from '../components/imageFrame';
-import { removeCatImage } from '../redux/catImages/actions';
-import { removeDogImage } from '../redux/dogImages/actions';
+import { removeCatImage, saveCatImage } from '../redux/catImages/actions';
+import { removeDogImage, saveDogImage } from '../redux/dogImages/actions';
 import { buttonStyle, headerStyle, spinnerStyle } from '../styles/styles';
 
 const Profile = (props: any) => {
@@ -19,15 +19,6 @@ const Profile = (props: any) => {
         setUrl(image);
         setShow(true);
     }  
-    const remove = (image: string,e:any,type:string) => {
-        e.stopPropagation()
-        if(type === "dog"){
-            props.removeDogImage(image)
-        } else if(type === "cat"){
-            props.removeCatImage(image)
-        }
-        
-      }
   return (
       <div>
           <h1 style={headerStyle}>Saved images</h1>
@@ -36,14 +27,12 @@ const Profile = (props: any) => {
           <div style={spinnerStyle}>{props.savedDogImages.length + props.savedCatImages.length} images</div>
           <div style={{padding:"2rem"}}>
                 {props.savedDogImages.map((image: any, index: number) => (
-                <ImageFrame key={index} click={()=>handleShow(image, "dog")} url={image} delay={index/20}>
-                    <Button variant="primary" onClick={(e: any)=>remove(image, e, "dog")} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
-                </ImageFrame>
+                    <ImageFrame key={index} click={()=>handleShow(image, "dog")} url={image} delay={index/20} save={()=>props.saveDogImage(image)} remove={()=>props.removeDogImage(image)} type="dog" comment={props.dogComments[image]?props.dogComments[image].length:0}>
+                    </ImageFrame>
                 ))}
                 {props.savedCatImages.map((image: any, index: number) => (
-                <ImageFrame key={index} click={()=>handleShow(image, "cat")} url={image} delay={index/20}>
-                    <Button variant="primary" onClick={(e: any)=>remove(image, e, "cat")} style={buttonStyle}><FontAwesomeIcon icon={faTrashAlt}/></Button>
-                </ImageFrame>
+                    <ImageFrame key={index} click={()=>handleShow(image, "cat")} url={image} delay={index/20} save={()=>props.saveCatImage(image)} remove={()=>props.removeCatImage(image)} type="cat" comment={props.catComments[image]?props.catComments[image].length:0}>
+                    </ImageFrame>
                 ))}
             </div>
             </>
@@ -57,11 +46,15 @@ const Profile = (props: any) => {
 const mapStateToProps = ({dog, cat}: any) =>{
     return {
         savedDogImages: dog.savedImages,
-        savedCatImages: cat.savedImages
+        savedCatImages: cat.savedImages,
+        dogComments: dog.comments,
+        catComments: cat.comments
     }
 }
 
 const mapDispatchToProps = {
+    saveDogImage: (image:string)=>saveDogImage(image),
+    saveCatImage: (image:string)=>saveCatImage(image),
     removeDogImage: (image: string)=>removeDogImage(image),
     removeCatImage: (image: string)=>removeCatImage(image)
 

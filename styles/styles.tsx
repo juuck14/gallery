@@ -22,14 +22,25 @@
     right: "0",
     bottom: "0",
   }
-  
-  export const commentIconStyle: CSSProperties = {
+
+
+  export const imageFooterStyle: CSSProperties = {
+    width: "100%",
     position: "absolute",
-    right: "2.5rem",
+    height: "2.5rem",
     bottom: "0",
-    padding: "0.275rem 0.75rem",
-    fontSize: "1.2rem",
-    color: "#0d6efd"
+    background: "white",
+    borderRadius: "0 0 5px 5px",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    fontSize: "1.2rem"
+  };
+
+  export const saveButtonStyle: CSSProperties = {
+    all: "unset",
+    padding: "0 5%",
+    color: "#dc3545"
   }
 
   export const commentStyle: CSSProperties = {

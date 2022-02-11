@@ -7,7 +7,7 @@ import { Button, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
-import { fetchCatImage, saveCatImage } from '../redux/catImages/actions'
+import { fetchCatImage, removeCatImage, saveCatImage } from '../redux/catImages/actions'
 import { buttonStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
@@ -24,11 +24,6 @@ const Home: NextPage = (props: any) => {
     setUrl(image);
     setShow(true);
   }  
-  const save = (image: string,e:any) => {
-    
-    e.stopPropagation()
-    props.saveCatImage(image)
-  }
   return (
     <div> 
       <Head>
@@ -41,19 +36,7 @@ const Home: NextPage = (props: any) => {
         {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
         <>
         {props.images.map(({url}: any, index: number) => (
-          <ImageFrame key={index} click={()=>handleShow(url)} url={url} delay={index/20}>
-          <OverlayTrigger
-            trigger='click'
-            key={index}
-            placement="top"
-            overlay={
-              <Tooltip id={`tooltip-${index}`}>
-                Saved!
-              </Tooltip>
-            }
-          >
-            <Button variant="danger" onClick={(e)=>save(url,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
-          </OverlayTrigger>
+          <ImageFrame key={index} click={()=>handleShow(url)} url={url} delay={index/20} save={()=>props.saveCatImage(url)} remove={()=>props.removeCatImage(url)} type="cat" comment={props.comments[url]?props.comments[url].length:0}>
           </ImageFrame>
           
         ))}
@@ -70,11 +53,13 @@ const Home: NextPage = (props: any) => {
 const mapStateToProps = ({dog, cat}: any) =>{
   return {
       loading: cat.loading,
-      images: cat.images
+      images: cat.images,
+      comments: cat.comments
   }
 }
 const mapDispatchToProps: any = {
     saveCatImage: (image:string)=>saveCatImage(image),
+    removeCatImage: (image:string)=>removeCatImage(image),
     fetchCatImage
 }
 

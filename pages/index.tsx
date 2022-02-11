@@ -1,14 +1,14 @@
-import { faHeart, faRedo, faComment } from '@fortawesome/free-solid-svg-icons'
+import { faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { Button, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
-import { fetchDogImage, saveDogImage } from '../redux/dogImages/actions'
-import { buttonStyle, commentIconStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
+import { fetchDogImage, removeDogImage, saveDogImage } from '../redux/dogImages/actions'
+import { containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
@@ -24,11 +24,7 @@ const Home: NextPage = (props: any) => {
     setUrl(image);
     setShow(true);
   }  
-  const save = (image: string,e:any) => {
-    
-    e.stopPropagation()
-    props.saveDogImage(image)
-  }
+
   return (
     <div> 
       <Head>
@@ -41,22 +37,7 @@ const Home: NextPage = (props: any) => {
         {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
         <>
         {props.images.map((image: string, index: number) => (
-          <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20}>
-          <OverlayTrigger
-            trigger='focus'
-            key={index}
-            placement="top"
-            overlay={
-              <Tooltip id={`tooltip-${index}`}>
-                Saved!
-              </Tooltip>
-            }
-          >
-            <>
-              <span style={commentIconStyle}><FontAwesomeIcon icon={faComment}/> {props.comments[image]?props.comments[image].length:0}</span>
-              <Button variant="danger" onClick={(e)=>save(image,e)} style={buttonStyle}><FontAwesomeIcon icon={faHeart} /></Button>
-            </>
-          </OverlayTrigger>
+          <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20} save={()=>props.saveDogImage(image)} remove={()=>props.removeDogImage(image)} type="dog" comment={props.comments[image]?props.comments[image].length:0}>
           </ImageFrame>
           
         ))}
@@ -78,6 +59,7 @@ const mapStateToProps = ({dog, cat}: any) =>{
 }
 const mapDispatchToProps: any = {
     saveDogImage: (image:string)=>saveDogImage(image),
+    removeDogImage: (image:string)=>removeDogImage(image),
     fetchDogImage
 }
 
