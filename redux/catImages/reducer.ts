@@ -1,7 +1,8 @@
-import { REMOVE_CAT_IMAGE, REQUEST_CAT_IMAGE, REQUEST_CAT_IMAGE_SUCCESS, REQUEST_CAT_IMAGE_FAILURE, SAVE_CAT_IMAGE, COMMENT_CAT_IMAGE } from './types'
+import { COMMENT_CAT_IMAGE, REMOVE_CAT_IMAGE, REQUEST_CAT_IMAGE, REQUEST_CAT_IMAGE_FAILURE, REQUEST_CAT_IMAGE_SUCCESS, REQUEST_CAT_TAG_SUCCESS, SAVE_CAT_IMAGE } from './types'
 
 const initialState: any = {
     images:[],
+    tags: [],
     savedImages:[],
     comments:{},
     loading: false,
@@ -38,12 +39,21 @@ const catImageReducer = (state=initialState, action: any) =>{
                 images: action.payload,
                 loading: false
             }    
+            
         case REQUEST_CAT_IMAGE_FAILURE:
             return {
                 ...state,
                 err: action.payload,
                 loading: false
-            }    
+            } 
+            
+        case REQUEST_CAT_TAG_SUCCESS:
+            return {
+                ...state,
+                tags: action.payload,
+                loading: false
+            } 
+
         case COMMENT_CAT_IMAGE:
             console.log(state.comments[action.payload.url])
             return {

@@ -36,7 +36,7 @@ const ImageFrameStyle = styled.div<ImageFrameInterface>`
     border-radius: 5px;
     opacity: 0;
     animation: ${animation}
-    @media only screen and (max-width: 700px) {
+    @media only screen and (max-width: 768px) {
         width: 43.99%;
         margin: 3%;
         padding-bottom: 43.99%;
@@ -80,7 +80,7 @@ const ImageFrame = ({click, url, type, delay, save, remove, comment, key, savedI
   return (
       <ImageFrameStyle onClick={click} url={url} delay={delay}>
         <div style={imageFooterStyle}>
-            <span><FontAwesomeIcon icon={faComment}/></span>
+            <span><FontAwesomeIcon icon={faComment}/> {comment}</span>
             <Button ref={target} onClick={(e: any) => Save(e)} onBlur={hide} style={saveButtonStyle}><FontAwesomeIcon icon={isSaved?faHeart:farHeart} /></Button>
             <Overlay target={target.current} show={savedShow} placement="top">
               {(props) => (

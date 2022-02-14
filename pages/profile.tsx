@@ -27,11 +27,11 @@ const Profile = (props: any) => {
           <div style={spinnerStyle}>{props.savedDogImages.length + props.savedCatImages.length} images</div>
           <div style={{padding:"2rem"}}>
                 {props.savedDogImages.map((image: any, index: number) => (
-                    <ImageFrame key={index} click={()=>handleShow(image, "dog")} url={image} delay={index/20} save={()=>props.saveDogImage(image)} remove={()=>props.removeDogImage(image)} type="dog" comment={props.dogComments[image]?props.dogComments[image].length:0}>
+                    <ImageFrame key={image} click={()=>handleShow(image, "dog")} url={image} delay={index/20} save={()=>props.saveDogImage(image)} remove={()=>props.removeDogImage(image)} type="dog" comment={props.dogComments[image]?props.dogComments[image].length:0}>
                     </ImageFrame>
                 ))}
                 {props.savedCatImages.map((image: any, index: number) => (
-                    <ImageFrame key={index} click={()=>handleShow(image, "cat")} url={image} delay={index/20} save={()=>props.saveCatImage(image)} remove={()=>props.removeCatImage(image)} type="cat" comment={props.catComments[image]?props.catComments[image].length:0}>
+                    <ImageFrame key={image} click={()=>handleShow(image, "cat")} url={image} delay={index/20} save={()=>props.saveCatImage(image)} remove={()=>props.removeCatImage(image)} type="cat" comment={props.catComments[image]?props.catComments[image].length:0}>
                     </ImageFrame>
                 ))}
             </div>

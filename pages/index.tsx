@@ -37,7 +37,8 @@ const Home: NextPage = (props: any) => {
         {props.loading?(<div style={spinnerStyle}><Spinner animation="border"/></div>):
         <>
         {props.images.map((image: string, index: number) => (
-          <ImageFrame key={index} click={()=>handleShow(image)} url={image} delay={index/20} save={()=>props.saveDogImage(image)} remove={()=>props.removeDogImage(image)} type="dog" comment={props.comments[image]?props.comments[image].length:0}>
+          <ImageFrame key={image} click={()=>handleShow(image)} url={image} delay={index/20} save={()=>props.saveDogImage(image)} 
+          remove={()=>props.removeDogImage(image)} type="dog" comment={props.comments[image]?props.comments[image].length:0}>
           </ImageFrame>
           
         ))}
