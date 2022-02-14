@@ -1,18 +1,19 @@
 import { faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Button, Spinner } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
 import { fetchDogImage, removeDogImage, saveDogImage } from '../redux/dogImages/actions'
+import { movePage } from '../redux/pageInfo/actions'
 import { containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
 const Home: NextPage = (props: any) => {
   useEffect(() => {
     props.fetchDogImage()
+    props.movePage(window.location.pathname,"DogGallery")
   },[])
   
   
@@ -27,10 +28,6 @@ const Home: NextPage = (props: any) => {
 
   return (
     <div> 
-      <Head>
-        <title>gallery</title>
-      </Head>
-
       <h1 style={headerStyle}>DogGallery</h1>
       <div style={{textAlign: "center"}}><Button variant="info" style={{borderRadius: "100%", color:"white"}} onClick={()=>props.fetchDogImage()}><FontAwesomeIcon icon={faRedo} /></Button></div>
       <div style={containerStyle}>
@@ -61,7 +58,8 @@ const mapStateToProps = ({dog, cat}: any) =>{
 const mapDispatchToProps: any = {
     saveDogImage: (image:string)=>saveDogImage(image),
     removeDogImage: (image:string)=>removeDogImage(image),
-    fetchDogImage
+    fetchDogImage,
+    movePage: (currentPage:string, title:string)=>movePage(currentPage, title)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Home)

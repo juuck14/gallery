@@ -45,7 +45,7 @@ export const commentDogImage = (url: string, comment: string) =>{
 export const fetchDogImage = () =>{
     return (dispatch: any) => {
         dispatch(requestDogImage())
-        fetch('https://dog.ceo/api/breeds/image/random/60')
+        fetch('https://dog.ceo/api/breeds/image/random/48')
         .then(response => response.json())
         .then(data => dispatch(requestDogImageSuccess(data.message)))
         .catch(error => dispatch(requestDogImageFailure(error)))

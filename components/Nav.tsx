@@ -1,12 +1,18 @@
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-const Navi = () => {
+const Navi = ({currentPage, title}: any) => {
   return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Navbar bg="dark" variant="dark">
         <Container>
           <Link href="/" passHref>
@@ -15,21 +21,21 @@ const Navi = () => {
           <Nav className="justify-content-end">
           <Nav.Item className="justify-content-end">
               <Link href="/" passHref>
-                <Nav.Link>
+                <Nav.Link className={currentPage === '/'?"active":""}>
                 Dogs
                 </Nav.Link>
               </Link>
           </Nav.Item>
           <Nav.Item className="justify-content-end">
               <Link href="/cats" passHref>
-                <Nav.Link>
+                <Nav.Link className={currentPage === '/cats'?"active":""}>
                 Cats
                 </Nav.Link>
               </Link>
           </Nav.Item>
           <Nav.Item className="justify-content-end">
               <Link href="/profile" passHref>
-               <Nav.Link>  
+               <Nav.Link className={currentPage === '/profile'?"active":""}>  
                  <FontAwesomeIcon icon={faUserCircle } />
                 </Nav.Link>
               </Link>          
@@ -43,7 +49,15 @@ const Navi = () => {
         </Container>
 
       </Navbar>
+      </>
     );
 };
 
-export default Navi;
+const mapStateToProps = ({pageInfo}: any) =>{
+  return {
+      currentPage: pageInfo.currentPage,
+      title: pageInfo.title
+  }
+}
+
+export default connect(mapStateToProps)(Navi);

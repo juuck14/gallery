@@ -1,0 +1,1 @@
+export const MOVE_PAGE: String = 'MOVE_PAGE'

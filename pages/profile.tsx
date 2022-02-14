@@ -1,15 +1,19 @@
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Detail from '../components/detail';
 import ImageFrame from '../components/imageFrame';
 import { removeCatImage, saveCatImage } from '../redux/catImages/actions';
 import { removeDogImage, saveDogImage } from '../redux/dogImages/actions';
-import { buttonStyle, headerStyle, spinnerStyle } from '../styles/styles';
+import { movePage } from '../redux/pageInfo/actions';
+import { headerStyle, spinnerStyle } from '../styles/styles';
 
 const Profile = (props: any) => {
+
+    useEffect(() => {
+        console.log('dsf')
+        props.movePage(window.location.pathname,"Profile")
+    },[])
+
     const [url, setUrl] = useState("");
     const [type, setType] = useState("");
     const [show, setShow] = useState(false);
@@ -56,7 +60,7 @@ const mapDispatchToProps = {
     saveDogImage: (image:string)=>saveDogImage(image),
     saveCatImage: (image:string)=>saveCatImage(image),
     removeDogImage: (image: string)=>removeDogImage(image),
-    removeCatImage: (image: string)=>removeCatImage(image)
-
+    removeCatImage: (image: string)=>removeCatImage(image),
+    movePage: (currentPage:string, title:string)=>movePage(currentPage, title)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);

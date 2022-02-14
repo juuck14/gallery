@@ -8,11 +8,16 @@ import { connect } from 'react-redux'
 import Detail from '../components/detail'
 import ImageFrame from '../components/imageFrame'
 import { fetchCatImage, removeCatImage, saveCatImage } from '../redux/catImages/actions'
+import { movePage } from '../redux/pageInfo/actions'
 import { checkboxContainerStyle, checkboxStyle, containerStyle, headerStyle, spinnerStyle } from '../styles/styles'
 
-const Home: NextPage = (props: any) => {
+const Cats: NextPage = (props: any) => {
 
-  
+  useEffect(() => {
+    console.log('dsf')
+    props.movePage(window.location.pathname,"CatGallery")
+  },[])
+
   const [url, setUrl] = useState("");
 
   const [show, setShow] = useState(false);
@@ -28,10 +33,6 @@ const Home: NextPage = (props: any) => {
   },[tag])
   return (
     <div> 
-      <Head>
-        <title>gallery</title>
-      </Head>
-
       <h1 style={headerStyle}>CatGallery</h1>
       <div style={{textAlign: "center"}}><Button variant="info" style={{borderRadius: "100%", color:"white"}} onClick={()=>props.fetchCatImage(props.tags.length, tag)}><FontAwesomeIcon icon={faRedo} /></Button></div>
       <div style={containerStyle}>
@@ -72,7 +73,8 @@ const mapStateToProps = ({dog, cat}: any) =>{
 const mapDispatchToProps: any = {
     saveCatImage: (image:string)=>saveCatImage(image),
     removeCatImage: (image:string)=>removeCatImage(image),
-    fetchCatImage: (length:number, tag:number)=>fetchCatImage(length, tag)
+    fetchCatImage: (length:number, tag:number)=>fetchCatImage(length, tag),
+    movePage: (currentPage:string, title:string)=>movePage(currentPage, title)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default connect(mapStateToProps,mapDispatchToProps)(Cats)

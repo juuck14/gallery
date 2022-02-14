@@ -54,7 +54,7 @@ export const fetchCatImage = (length: number, tag: number) =>{
     return async (dispatch: any) => {
         if(tag < 0){
             dispatch(requestCatImage())
-            fetch('https://api.thecatapi.com/v1/images/search?limit=60')
+            fetch('https://api.thecatapi.com/v1/images/search?limit=48')
             .then(response => response.json())
             .then(function(data) { 
                 console.log(data)
@@ -73,7 +73,7 @@ export const fetchCatImage = (length: number, tag: number) =>{
             }).catch(error => dispatch(requestCatImageFailure(error)))
         } else{
             dispatch(requestCatImage())
-            fetch('https://api.thecatapi.com/v1/images/search?limit=60&category_ids=' + tag.toString())
+            fetch('https://api.thecatapi.com/v1/images/search?limit=48&category_ids=' + tag.toString())
             .then(response => response.json())
             .then(data => dispatch(requestCatImageSuccess(data)))
             .catch(error => dispatch(requestCatImageFailure(error)))

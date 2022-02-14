@@ -4,10 +4,12 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import catImageReducer from './catImages/reducer';
 import dogImageReducer from './dogImages/reducer';
+import pageInfoReducer from './pageInfo/reducer';
 
 const rootReducer = combineReducers({
     cat : catImageReducer, 
-    dog : dogImageReducer
+    dog : dogImageReducer,
+    pageInfo: pageInfoReducer
 })
 
 const middleware = [logger, thunk]
